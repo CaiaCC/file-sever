@@ -1,20 +1,23 @@
 const net = require('net');
-const stdin = process.stdin;
 
+const stdin = process.stdin;
 stdin.setEncoding('utf-8');
 
 const client = net.createConnection({
     host: 'localhost',
     port: 3000,
 });
+
 client.setEncoding('utf-8');
 
 client.on('connect', () => {
-    client.write('Hi, this is Caia.')
+    stdin.on('data', (data) => {
+        client.write(data);
+    })
 })
 
 client.on('data', (data) => {
-    console.log(data)
+    console.log(data);
 })
 
 
